@@ -13,7 +13,21 @@ from config import (
 )
 from agents import build_crew, clean_topic, finalize_report, run_presearch
 from pdf_generator import generate_pdf
+st.set_page_config(page_title="AI Research Report Generator", page_icon="📄", layout="wide")
+import hmac
 
+APP_PASSWORD = os.getenv("Kiran@123", "")
+if APP_PASSWORD and not st.session_state.get("authed"):
+    st.title("🔒 Login")
+    pw = st.text_input("Password", type="password")
+    if st.button("Enter"):
+        if hmac.compare_digest(pw, APP_PASSWORD):
+            st.session_state["authed"] = True
+            st.rerun()
+        else:
+            st.error("Wrong password")
+    st.stop()
+    
 IS_CLOUD = (
     os.getenv("APP_ENV", "").lower() == "cloud"
     or bool(os.getenv("RENDER"))
