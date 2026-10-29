@@ -16,7 +16,7 @@ from pdf_generator import generate_pdf
 st.set_page_config(page_title="AI Research Report Generator", page_icon="📄", layout="wide")
 import hmac
 
-APP_PASSWORD = os.getenv("Kiran@123", "")
+APP_PASSWORD = os.getenv("APP_PASSWORD", "")
 if APP_PASSWORD and not st.session_state.get("authed"):
     st.title("🔒 Login")
     pw = st.text_input("Password", type="password")
